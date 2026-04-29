@@ -14,6 +14,10 @@ export default function Home() {
         </header>
 
         <main className="space-y-16">
+          <CategorySection title="Strings and Subsequences" problems={[
+            { id: 'lcs', title: 'Longest Common Subsequence', desc: 'Find the longest sequence common to two strings.', status: 'Available' }
+          ]} />
+
           <CategorySection title="Directed Acyclic Graphs" problems={[
             { id: 'fibonacci', title: 'Fibonacci Sequence', desc: 'Introduction to overlapping subproblems and memoization.', status: 'Available' },
             { id: 'climbing-stairs', title: 'Climbing Stairs', desc: 'Understanding branch choices and path counting.', status: 'Available' }
@@ -26,6 +30,10 @@ export default function Home() {
 
           <CategorySection title="Strings and Subsequences" problems={[
             { id: 'lcs', title: 'Longest Common Subsequence', desc: '2D state definitions and string matching logic.', status: 'Coming Soon' }
+          ]} />
+
+          <CategorySection title="Optimization & Finance" problems={[
+            { id: 'stock-dp', title: 'Best Time to Buy and Sell Stock (K Trans)', desc: 'State-first teaching on multi-variable DP (Day, Buy, K).', status: 'Available' }
           ]} />
 
           <CategorySection title="Intervals" problems={[

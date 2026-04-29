@@ -21,7 +21,7 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   steps: [],
   currentStepIndex: 0,
   isPlaying: false,
-  speedMs: 1000,
+  speedMs: 2000,
   visualizationMode: 'tree',
   setVisualizationMode: (mode) => set({ visualizationMode: mode }),
   setSteps: (steps) => set({ steps, currentStepIndex: 0, isPlaying: false }),

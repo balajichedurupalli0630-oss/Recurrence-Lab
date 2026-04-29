@@ -6,9 +6,18 @@ export type StepEvent = {
   parentId?: string;
   value?: number;
   explanation: string;
+  choiceExplanation?: string;
+  branchName?: string;
+  decisionLogic?: string;
   formula?: string;
   tableCell?: { row: number; col: number };
   depth: number;
+  choices?: {
+    label: string;
+    description: string;
+    nextState: string;
+    impact: string;
+  }[];
 };
 
 export type InputField = {
@@ -32,6 +41,12 @@ export type ProblemDefinition = {
   id: string;
   title: string;
   description: string;
+  intuition: string;
+  precedingProblem?: string;
+  contextualIntro?: string;
+  reframing?: string;
+  inputMeaning: string;
+  outputMeaning: string;
   inputSchema: InputField[];
   maxTreeInputRule: (input: any) => boolean;
   generateSteps: (input: any) => StepEvent[];

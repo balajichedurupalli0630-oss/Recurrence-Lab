@@ -3,7 +3,10 @@ import { ProblemDefinition, StepEvent } from "../../engine/types";
 export const fibonacciProblem: ProblemDefinition = {
   id: "fibonacci",
   title: "Fibonacci Sequence",
-  description: "Calculate the nth Fibonacci number.",
+  description: "Calculate the nth Fibonacci number, where each number is the sum of the two preceding ones.",
+  intuition: "Fibonacci is the classic example of overlapping subproblems. Notice how the same F(n) is calculated multiple times across different branches of the tree.",
+  inputMeaning: "n = The index of the Fibonacci number to calculate.",
+  outputMeaning: "The value of the Fibonacci number at index n.",
   inputSchema: [
     {
       name: "n",
@@ -23,7 +26,7 @@ export const fibonacciProblem: ProblemDefinition = {
     const n = parseInt(input.n, 10);
     const memo = new Map<number, number>();
 
-    const fib = (currentN: number, parentId?: string, depth: number = 0): number => {
+    const fib = (currentN: number, parentId?: string, depth: number = 0, branchName?: string): number => {
       const callId = `call-${stepCount++}`;
       const stateKey = `F(${currentN})`;
 
@@ -34,7 +37,9 @@ export const fibonacciProblem: ProblemDefinition = {
         params: { n: currentN },
         parentId,
         depth,
-        explanation: `Evaluating ${stateKey}`,
+        branchName,
+        explanation: `Evaluating the ${currentN}th Fibonacci number.`,
+        choiceExplanation: branchName ? `Calculating the ${branchName === 'n-1' ? 'first' : 'second'} component of the sum.` : undefined,
       });
 
       if (memo.has(currentN)) {
@@ -47,7 +52,8 @@ export const fibonacciProblem: ProblemDefinition = {
           parentId: callId,
           value: val,
           depth,
-          explanation: `Cache hit for ${stateKey}, returning ${val}`,
+          explanation: `Cache hit for F(${currentN}).`,
+          decisionLogic: "We already found this result in another part of the tree. Reusing it prevents redundant branching.",
         });
         return val;
       }
@@ -63,11 +69,23 @@ export const fibonacciProblem: ProblemDefinition = {
           parentId: callId,
           value: result,
           depth,
-          explanation: `Base case reached: ${stateKey} = ${result}`,
+          explanation: `BASE CASE: F(${currentN}) is defined as ${result}.`,
+          decisionLogic: "Base cases stop the recursion from growing infinitely. They are the building blocks of the final answer.",
         });
       } else {
-        const left = fib(currentN - 1, callId, depth + 1);
-        const right = fib(currentN - 2, callId, depth + 1);
+        steps.push({
+          id: `choice-${stepCount++}`,
+          type: "choice",
+          stateKey,
+          params: { n: currentN },
+          parentId: callId,
+          depth,
+          explanation: `To find F(${currentN}), we must break it down into two smaller subproblems.`,
+          decisionLogic: `1. Calculate F(${currentN - 1})\n2. Calculate F(${currentN - 2})`,
+        });
+
+        const left = fib(currentN - 1, callId, depth + 1, "n-1");
+        const right = fib(currentN - 2, callId, depth + 1, "n-2");
         result = left + right;
 
         steps.push({
@@ -78,7 +96,8 @@ export const fibonacciProblem: ProblemDefinition = {
           parentId: callId,
           value: result,
           depth,
-          explanation: `Combining results: ${stateKey} = ${left} + ${right} = ${result}`,
+          explanation: `F(${currentN}) is the sum of its two subproblems.`,
+          decisionLogic: "We use SUM (+) to combine the results because the sequence definition requires both previous values.",
           formula: `F(${currentN}) = F(${currentN - 1}) + F(${currentN - 2}) = ${left} + ${right} = ${result}`,
         });
       }
