@@ -6,7 +6,6 @@ Recurrence Lab is an interactive educational web application that helps students
 
 - **Problem Explorer**: Navigate through classic DP problems like Fibonacci, Climbing Stairs, Coin Change, 0/1 Knapsack, and LCS.
 - **Recursion Tree Visualizer**: Watch how recursive calls branch out and identify overlapping subproblems.
-- **DAG View**: See identical states merged into a Directed Acyclic Graph.
 - **Memoization View**: Track cache hits, misses, and stored values.
 - **Tabulation View**: Understand how top-down approaches convert into bottom-up table filling.
 - **Formula Explanation**: Step-by-step guidance on how the recurrence relation is derived.
