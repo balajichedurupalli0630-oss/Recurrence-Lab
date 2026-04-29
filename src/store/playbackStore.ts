@@ -6,6 +6,8 @@ interface PlaybackState {
   currentStepIndex: number;
   isPlaying: boolean;
   speedMs: number;
+  visualizationMode: 'tree' | 'dag' | 'table';
+  setVisualizationMode: (mode: 'tree' | 'dag' | 'table') => void;
   setSteps: (steps: StepEvent[]) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -20,6 +22,8 @@ export const usePlaybackStore = create<PlaybackState>((set) => ({
   currentStepIndex: 0,
   isPlaying: false,
   speedMs: 1000,
+  visualizationMode: 'tree',
+  setVisualizationMode: (mode) => set({ visualizationMode: mode }),
   setSteps: (steps) => set({ steps, currentStepIndex: 0, isPlaying: false }),
   nextStep: () =>
     set((state) => ({
