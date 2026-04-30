@@ -28,9 +28,6 @@ export default function Home() {
             { id: '01-knapsack', title: '0/1 Knapsack', desc: 'Include or exclude items with capacity constraints.', status: 'Coming Soon' }
           ]} />
 
-          <CategorySection title="Strings and Subsequences" problems={[
-            { id: 'lcs', title: 'Longest Common Subsequence', desc: '2D state definitions and string matching logic.', status: 'Coming Soon' }
-          ]} />
 
           <CategorySection title="Optimization & Finance" problems={[
             { id: 'stock-dp', title: 'Best Time to Buy and Sell Stock (K Trans)', desc: 'State-first teaching on multi-variable DP (Day, Buy, K).', status: 'Available' }
